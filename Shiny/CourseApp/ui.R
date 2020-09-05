@@ -28,7 +28,7 @@ shinyUI(fluidPage(
         # Show a plot of faithful data plus the predicted waiting time based
         # on user input
         mainPanel(
-            h4('Predicted waiting time for next eruption in seconds:'),
+            h4('Predicted waiting time for next eruption in minutes:'),
             textOutput("wait_time"),
             plotOutput("distPlot")
         )
