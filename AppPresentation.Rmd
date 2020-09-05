@@ -1,0 +1,46 @@
+---
+title: "Faithful Prediction App"
+author: "Patrick Neumann"
+date: "9/5/2020"
+output: slidy_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## Faithful Prediction App
+
+The **Faithful Prediction App** predicts waiting times for the next eruption of old faithful given the length of the previous eruption.
+
+The app allows you to select the lenght of the last eruption and will show you the waiting time in minutes to the next eruption in text format as well as in a graph in comparison to historical data.
+
+## Faithful Dataset
+
+As base dataset for the prediction model the *faithful* dataset from R was used.
+This dataset contains columns as following
+
+- **eruptions** Length of last eruption in minutes
+- **waiting** Waiting time for next eruption in minutes
+```{r faithful, echo = FALSE}
+library(ggplot2)
+ggplot(data=faithful, aes(eruptions, waiting)) + 
+            geom_point()
+```
+
+## Prediction Model
+
+As model for the predictions a random forest with 5-fold cross validation was selected.
+```{r preditionModel}
+library(caret)
+train_control <- trainControl(method = "cv", 
+                                  number = 5) 
+set.seed(383743)
+model <- train(waiting ~., data = faithful, method='rf', trControl = train_control)
+model$finalModel
+```
+
+## Faithful Prediction App
+
+![The Faithful Prediciton App](PredictionApp.png)
+
