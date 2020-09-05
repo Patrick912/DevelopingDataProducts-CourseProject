@@ -30,17 +30,15 @@ ggplot(data=faithful, aes(eruptions, waiting)) +
 
 ## Prediction Model
 
-As model for the predictions a random forest with 5-fold cross validation was selected.
+Due to performance reasons of *shinyapps.io* a simple linear regression model was selected.
 ```{r preditionModel}
 library(caret)
-train_control <- trainControl(method = "cv", 
-                                  number = 5) 
-set.seed(383743)
-model <- train(waiting ~., data = faithful, method='rf', trControl = train_control)
+
+model <- train(waiting ~., data = faithful, method='lm')
 model$finalModel
 ```
 
 ## Faithful Prediction App
 
-![The Faithful Prediciton App](PredictionApp.png)
+![The Faithful Prediction App](PredictionApp.png)
 

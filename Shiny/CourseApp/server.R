@@ -11,18 +11,12 @@ library(shiny)
 library(caret)
 library(ggplot2)
 
+model <- train(waiting ~., data = faithful, method='lm')
+model
+
 # Define server logic required to draw a histogram
 shinyServer(function(input, output) {
 
-    # defining training control 
-    # as cross-validation and  
-    # value of K equal to 5 
-    train_control <- trainControl(method = "cv", 
-                                  number = 5) 
-    set.seed(383743)
-    model <- train(waiting ~., data = faithful, method='rf', trControl = train_control)
-    model
-    
     output$wait_time <- renderText({
         predict(model, data.frame(eruptions = c(input$eruption_length)))
     })
